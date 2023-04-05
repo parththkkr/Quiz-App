@@ -1,7 +1,7 @@
 #### Quiz-App
 #### Django Quiz App
 ##### setps to setup project
-##### Delete db.sqllite3 file
+###### Delete db.sqllite3 file
 ###### pip install virtualenv
 ###### python -m venv quizenv
 ###### pip install -r require.txt 
