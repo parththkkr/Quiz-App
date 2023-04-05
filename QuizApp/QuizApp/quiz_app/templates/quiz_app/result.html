@@ -1,0 +1,11 @@
+{% extends 'quiz_app/base.html' %}
+
+{% block content %}
+<h2>Quiz Result</h2>
+<p>Your score: {{ score }} / 5</p>
+<p>{{ message }}</p>
+{% if score < 3 %}
+<a href="{% url 'quiz_app:quiz' %}">Retake Quiz</a>
+{% endif %}
+<a href="{% url 'quiz_app:score_history' %}">View Score History</a>
+{% endblock %}

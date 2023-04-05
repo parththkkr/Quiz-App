@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Django Quiz App</title>
+    {% load static %}
+    {% load bootstrap5 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+<header>
+    <h1>Django Quiz App</h1>
+    {% if user.is_authenticated %}
+    <nav>
+        <a>{{user.username}}</a>
+        <a href="{% url 'quiz_app:quiz' %}">Quiz</a>
+        <a href="{% url 'quiz_app:score_history' %}">Score History</a>
+        <a href="{% url 'quiz_app:logout' %}">Logout</a>
+    </nav>
+    {% else %}
+    <nav>
+        <a href="{% url 'quiz_app:login' %}">Login</a>
+        <a href="{% url 'quiz_app:register' %}">Register</a>
+    </nav>
+    {% endif %}
+</header>
+<main>
+    {% block content %}
+    {% endblock %}
+</main>
+</body>
+</html>

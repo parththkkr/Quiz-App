@@ -1,0 +1,65 @@
+{% extends 'quiz_app/base.html' %}
+
+{% block content %}
+<h2>Quiz</h2>
+{{ids}}
+<form method="post" id="quiz-form">
+    {% csrf_token %}
+    {% for question in questions %}
+    <div class="question">
+        <p>{{ forloop.counter }}. {{ question.question_text }}</p>
+        <ul class="list-group">
+            <li class="list-group-item">
+                <label for="option_{{question.id}}_a">
+                    <input type="radio" name="{{ question.id }}" value="a" id="option_{{question.id}}_a">
+                    {{ question.answer_a }}
+                </label>
+            </li>
+            <li class="list-group-item">
+                <label for="option_{{question.id}}_b">
+                    <input type="radio" name="{{ question.id }}" value="b" id="option_{{question.id}}_b">
+                    {{ question.answer_b }}
+                </label>
+            </li>
+            <li class="list-group-item">
+                <label for="option_{{question.id}}_c">
+                    <input type="radio" name="{{ question.id }}" value="c" id="option_{{question.id}}_c">
+                    {{ question.answer_c }}
+                </label>
+            </li>
+            <li class="list-group-item">
+                <label for="option_{{question.id}}_d">
+                    <input type="radio" name="{{ question.id }}" value="d" id="option_{{question.id}}_d">
+                    {{ question.answer_d }}
+                </label>
+            </li>
+        </ul>
+    </div>
+    {% endfor %}
+    <input type="hidden" name="question_answer" value="{{ question_answer_json }}">
+    <button type="submit" class="btn btn-primary mt-4">Submit</button>
+</form>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#quiz-form').submit(function (event) {
+            event.preventDefault();
+            var formData = $(this).serialize();
+            $.ajax({
+                type: 'POST',
+                url: '{% url "quiz_app:quiz_question" %}',
+                data: formData,
+                success: function (response) {
+                    // handle successful response
+                    window.location.href = response.redirect_url; // redirect to result page
+                },
+                error: function (xhr, status, error) {
+                    // handle error
+                }
+            });
+        });
+    });
+
+</script>
+{% endblock %}

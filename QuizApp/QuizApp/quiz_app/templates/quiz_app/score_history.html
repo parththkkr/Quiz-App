@@ -1,0 +1,31 @@
+{% extends 'quiz_app/base.html' %}
+
+{% block content %}
+<h1>Score History</h1>
+<table>
+    <thead>
+    <tr>
+        <th>Date</th>
+        <th>Score</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for result in results %}
+    <tr>
+        <td>{{ result.created_at }}</td>
+        <td>{{ result.score }}</td>
+    </tr>
+    {% empty %}
+    <tr>
+        <td colspan="2">No quiz results found.</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+<h2>Statistics</h2>
+<ul>
+    <li>Average score: {{ average_score|default_if_none:"N/A" }}</li>
+    <li>Highest score: {{ highest_score|default_if_none:"N/A" }}</li>
+    <li>Lowest score: {{ lowest_score|default_if_none:"N/A" }}</li>
+</ul>
+{% endblock %}
